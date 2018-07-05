@@ -13,4 +13,37 @@
         android:textAlignment="center"
         android:text="@string/nav_upload" />
 
+    <Button
+        android:id="@+id/record_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/record" />
+
+    <Button
+        android:id="@+id/select_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="180dp"
+        android:text="@string/local_video_beauty" />
+
+    <Button
+        android:id="@+id/audio_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/audio_editor" />
+
+    <Button
+        android:id="@+id/video_connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="190dp"
+        android:text="@string/video_connect"
+        android:visibility="visible" />
+
 </FrameLayout>
