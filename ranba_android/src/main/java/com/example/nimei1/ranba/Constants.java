@@ -59,12 +59,14 @@ public class Constants {
     }
 
     public static String getBaseFolder() {
-        String baseFolder = Environment.getExternalStorageDirectory() + "/Codec/";
+        String baseFolder = Environment.getExternalStorageDirectory() + "/ranBa/";
         File f = new File(baseFolder);
         if (!f.exists()) {
             boolean b = f.mkdirs();
             if (!b) {
-                baseFolder = MyApplication.getContext().getExternalFilesDir(null).getAbsolutePath() + "/";
+                //baseFolder = MyApplication.getContext().getExternalFilesDir(null).getAbsolutePath() + "/";
+
+                baseFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/";
             }
         }
         return baseFolder;

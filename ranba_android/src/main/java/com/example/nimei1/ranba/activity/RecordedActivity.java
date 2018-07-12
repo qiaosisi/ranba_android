@@ -1,11 +1,22 @@
 package com.example.nimei1.ranba.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.hardware.Camera;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +33,7 @@ import com.example.nimei1.ranba.widget.CameraView;
 import com.example.nimei1.ranba.widget.CircularProgressView;
 import com.example.nimei1.ranba.widget.FocusImageView;
 
+import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,6 +63,12 @@ public class RecordedActivity extends BaseActivity implements View.OnClickListen
     ExecutorService executorService;
     private SensorControler mSensorControler;
 
+    private MediaScannerConnection mMediaScannerConnection;
+    // 存储权限code
+    public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
+    // 相机权限code
+    private final int CAMERA_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +76,13 @@ public class RecordedActivity extends BaseActivity implements View.OnClickListen
         executorService = Executors.newSingleThreadExecutor();
         mSensorControler = SensorControler.getInstance();
         mSensorControler.setCameraFocusListener(this);
+
+        //1.创建MediaScannerConnection
+        mMediaScannerConnection = new MediaScannerConnection(this, null);
+        //调用connect
+        mMediaScannerConnection.connect();
+
+
         initView();
     }
 
@@ -68,7 +93,6 @@ public class RecordedActivity extends BaseActivity implements View.OnClickListen
         mBeautyBtn = (ImageView) findViewById(R.id.btn_camera_beauty);
         mFilterBtn = (ImageView) findViewById(R.id.btn_camera_filter);
         mCameraChange = (ImageView) findViewById(R.id.btn_camera_switch);
-
 
         mBeautyBtn.setOnClickListener(this);
         mCameraView.setOnTouchListener(this);
@@ -178,7 +202,8 @@ public class RecordedActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.mCapture:
                 if (!recordFlag) {
-                    executorService.execute(recordRunnable);
+                    // 请求权限
+                    requestPermission();
                 } else if (!pausing) {
                     mCameraView.pause(false);
                     pausing = true;
@@ -250,11 +275,96 @@ public class RecordedActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void run() {
                 mCapture.setProcess(0);
-                Toast.makeText(RecordedActivity.this, "文件保存路径：" + path, Toast.LENGTH_SHORT).show();
+                scanFile(path,true);
+                Toast.makeText(RecordedActivity.this, "文件保存路径：" + path, Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    /**
+     * @param filePath 保存到本地的文件路径
+     * @param isVideo  是否是视频
+     */
+    private void scanFile(String filePath, boolean isVideo) {
+        if (mMediaScannerConnection != null) {
+            if (isVideo) {
+                //主动扫描视频
+                mMediaScannerConnection.scanFile(filePath, "video/mp4");
+            } else {
+                //主动扫描图片
+                mMediaScannerConnection.scanFile(filePath, "image/jpeg");
+            }
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mMediaScannerConnection != null) {
+            //释放连接
+            mMediaScannerConnection.disconnect();
+        }
+    }
 
+    // 权限申请
+    public void requestPermission(){
+        //判断当前Activity是否已经获得了该权限
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            //如果App的权限申请曾经被用户拒绝过，就需要在这里跟用户做出解释
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this,"please give me the permission",Toast.LENGTH_SHORT).show();
+            } else {
+                //进行存储权限请求
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        EXTERNAL_STORAGE_REQ_CODE);
+            }
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // 第一次请求权限时，用户如果拒绝，下一次请求shouldShowRequestPermissionRationale()返回true
+            // 向用户解释为什么需要这个权限
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                new AlertDialog.Builder(this)
+                        .setMessage("申请相机权限")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //申请相机权限
+                                ActivityCompat.requestPermissions(RecordedActivity.this,
+                                        new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+                            }
+                        })
+                        .show();
+            } else {
+                //申请相机权限
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+            }
+        }
+
+        // 已经申请直接录制
+        executorService.execute(recordRunnable);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case EXTERNAL_STORAGE_REQ_CODE: {
+                // 如果请求被拒绝，那么通常grantResults数组为空
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //申请成功，进行录制
+                    executorService.execute(recordRunnable);
+                } else {
+                    //申请失败，可以继续向用户解释。
+                }
+                return;
+            }
+        }
+    }
 }

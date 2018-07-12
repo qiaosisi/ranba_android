@@ -46,8 +46,7 @@ public class UploadFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.record_activity:
-                Intent intent = new Intent(getActivity(),RecordedActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getActivity(),RecordedActivity.class));
             case R.id.select_activity:
                 VideoSelectActivity.openActivity(getActivity());
                 break;

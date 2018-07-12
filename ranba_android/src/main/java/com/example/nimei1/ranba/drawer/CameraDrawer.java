@@ -90,7 +90,7 @@ public class CameraDrawer implements GLSurfaceView.Renderer {
         MatrixUtils.flip(OM,false,true);//矩阵上下翻转
 
         WaterMarkFilter waterMarkFilter = new WaterMarkFilter(resources);
-        waterMarkFilter.setWaterMark(BitmapFactory.decodeResource(resources,R.mipmap.watermark));
+        waterMarkFilter.setWaterMark(BitmapFactory.decodeResource(resources,R.mipmap.watermark_ranba));
         waterMarkFilter.setPosition(30,50,0,0);
         addFilter(waterMarkFilter);
 

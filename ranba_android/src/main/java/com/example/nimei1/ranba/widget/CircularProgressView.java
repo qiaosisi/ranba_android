@@ -15,7 +15,7 @@ import com.example.nimei1.ranba.utils.DensityUtils;
 
 
 /**
- * Description:
+ * Description:相机中间圆按钮组件
  */
 public class CircularProgressView extends android.support.v7.widget.AppCompatImageView {
 
