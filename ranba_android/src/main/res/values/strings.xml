@@ -11,7 +11,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="video">视频</string>
-    <string name="record">录制</string>
+    <string name="record">拍摄</string>
     <string name="local_video_beauty">本地视频美颜</string>
     <string name="audio_editor">音频处理</string>
     <string name="video_connect">视频拼接</string>

@@ -2,18 +2,12 @@ package com.example.nimei1.ranba.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.nimei1.ranba.Constants;
-import com.example.nimei1.ranba.MyApplication;
 import com.example.nimei1.ranba.R;
 import com.example.nimei1.ranba.camera.SensorControler;
 import com.example.nimei1.ranba.gpufilter.SlideGpuFilterGroup;
@@ -33,7 +26,6 @@ import com.example.nimei1.ranba.widget.CameraView;
 import com.example.nimei1.ranba.widget.CircularProgressView;
 import com.example.nimei1.ranba.widget.FocusImageView;
 
-import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -77,11 +69,10 @@ public class RecordedActivity extends BaseActivity implements View.OnClickListen
         mSensorControler = SensorControler.getInstance();
         mSensorControler.setCameraFocusListener(this);
 
-        //1.创建MediaScannerConnection
+        // 创建MediaScannerConnection
         mMediaScannerConnection = new MediaScannerConnection(this, null);
-        //调用connect
+        // 调用connect
         mMediaScannerConnection.connect();
-
 
         initView();
     }
