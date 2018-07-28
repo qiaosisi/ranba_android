@@ -3,47 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UploadFragment">
+    tools:context=".UploadFragment"
+    android:background="@drawable/bg_upload">
+
+    <com.example.nimei1.ranba.CustomToolBar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        app:left_tv_text="@string/nav_upload"
+        app:left_tv_visible="true"
+        app:right_btn_src="@drawable/search_bar"
+        app:right_btn_visible="true"
+        app:title_text="首页"
+        app:title_visible="true"
+        tools:context="com.example.nimei1.ranba.activity.MainActivity"></com.example.nimei1.ranba.CustomToolBar>
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:text="@string/nav_upload" />
-
     <Button
         android:id="@+id/record_activity"
+        style="@android:style/Widget.DeviceDefault.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/record" />
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/button_upload"
+        android:text="@string/record"
+        android:textColor="@color/cardview_light_background" />
 
     <Button
         android:id="@+id/select_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="180dp"
-        android:text="@string/local_video_beauty" />
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/button_upload"
+        android:text="@string/local_video_beauty"
+        android:textColor="@color/cardview_light_background" />
 
     <Button
         android:id="@+id/audio_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/audio_editor" />
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/button_upload"
+        android:text="@string/audio_editor"
+        android:textColor="@color/cardview_light_background" />
 
     <Button
         android:id="@+id/video_connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:layout_marginStart="190dp"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/button_upload"
         android:text="@string/video_connect"
+        android:textColor="@color/cardview_light_background"
         android:visibility="visible" />
 
 </FrameLayout>

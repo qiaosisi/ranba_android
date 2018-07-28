@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#9fFF4081</color>
     <color name="iTextColor3">#848484</color>
     <color name="iTextColor5">#7f333336</color>
     <color name="iTextColor6">#f0b017</color>
@@ -13,4 +13,11 @@
 
     <!-- 标题栏颜色 -->
     <color name="bg_toolbar">#3CB371</color>
+
+    <!-- 滑动视频相关 -->
+    <color name="white">#ffffff</color>
+
+    <!-- 按钮 -->
+    <color name="color_check_bg">#00FA9A</color>
+    <color name="theme_red">#FF1493</color>
 </resources>
