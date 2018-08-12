@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.example.nimei1.ranba.AccountFragment;
@@ -14,6 +16,7 @@ import com.example.nimei1.ranba.GroupFragment;
 import com.example.nimei1.ranba.HomeFragment;
 import com.example.nimei1.ranba.R;
 import com.example.nimei1.ranba.UploadFragment;
+import com.example.nimei1.ranba.fragment.LoginFragment;
 
 public class MainActivity extends BaseActivity {
 

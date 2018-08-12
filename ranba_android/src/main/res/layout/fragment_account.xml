@@ -10,7 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
@@ -19,6 +19,16 @@
         app:right_btn_src="@drawable/search_bar"
         app:right_btn_visible="true"
         tools:context="com.example.nimei1.ranba.activity.MainActivity"></com.example.nimei1.ranba.CustomToolBar>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        android:text="点击登录"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <!-- TODO: Update blank fragment layout -->
 
