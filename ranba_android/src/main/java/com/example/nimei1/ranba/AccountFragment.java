@@ -1,5 +1,6 @@
 package com.example.nimei1.ranba;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.nimei1.ranba.fragment.LoginFragment;
 
@@ -16,8 +17,6 @@ import com.example.nimei1.ranba.fragment.LoginFragment;
  * A simple {@link Fragment} subclass.
  */
 public class AccountFragment extends Fragment {
-    private LoginFragment loginFragment;
-    private Button btnLogin;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -26,8 +25,24 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
+
+        SharedPreferences userSettings= getActivity().getSharedPreferences("setting", 0);
+        String userName = userSettings.getString("USER_NAME","***");
+
+        if (!userName.equals("***")) {
+            // 设置用户名
+            TextView textView = rootView.findViewById(R.id.usreName);
+            textView.setText(userName);
+
+            // 隐藏登录按钮
+            Button button = rootView.findViewById(R.id.loginBtn);
+            button.setVisibility(View.INVISIBLE);
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return rootView;
     }
 
     @Override
@@ -35,7 +50,7 @@ public class AccountFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
 
-        btnLogin = (Button) getActivity().findViewById(R.id.loginBtn);
+        Button btnLogin = (Button) getActivity().findViewById(R.id.loginBtn);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
 

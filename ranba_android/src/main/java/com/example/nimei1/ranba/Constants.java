@@ -12,6 +12,13 @@ import java.io.File;
  */
 
 public class Constants {
+
+    /**
+     * 服武器地址
+     * */
+    //public static String WEB_URL = "https://www.yours.com";
+    public static String WEB_URL = "http://192.168.0.103:8080/";
+
     /**
      * 屏幕宽高
      */
