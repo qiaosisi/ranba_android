@@ -18,6 +18,9 @@
     <color name="white">#ffffff</color>
 
     <!-- 按钮 -->
-    <color name="color_check_bg">#00FA9A</color>
     <color name="theme_red">#FF1493</color>
+    <color name="background_color">#28a745</color>
+
+    <!-- 全局横杠颜色 -->
+    <color name="theme_bar">#F6F6F6</color>
 </resources>

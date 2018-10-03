@@ -1,12 +1,13 @@
 package com.example.nimei1.ranba.fragment;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nimei1.ranba.AccountFragment;
+import com.example.nimei1.ranba.Constants;
 import com.example.nimei1.ranba.R;
 
 import org.json.JSONException;
@@ -38,13 +41,11 @@ public class LoginFragment extends Fragment {
     private int countSeconds = 60;//倒计时秒数
     private EditText mobile_login, yanzhengma;
     private Button getMsgCode, login_btn;
-    private Context mContext;
-    private String usersuccess;
-    private String userinfomsg;
     // Http请求
     OkHttpClient client = new OkHttpClient();
-    String token;
-    String userId;
+
+    // 保存用户登录信息
+    private SharedPreferences sp;
 
     private Handler mCountHandler = new Handler() {
         @Override
@@ -52,11 +53,11 @@ public class LoginFragment extends Fragment {
             super.handleMessage(msg);
             if (countSeconds > 0) {
                 --countSeconds;
-                getMsgCode.setText("(" + countSeconds + ")后获取验证码");
+                getMsgCode.setText(countSeconds + "");
                 mCountHandler.sendEmptyMessageDelayed(0, 1000);
             } else {
                 countSeconds = 60;
-                getMsgCode.setText("请重新获取验证码");
+                getMsgCode.setText("重新发送验证码");
             }
         }
     };
@@ -98,16 +99,25 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    //获取信息进行登录
+    // 获取信息进行登录
     public void login() {
-        String mobile = mobile_login.getText().toString().trim();
-        String verifyCode = yanzhengma.getText().toString().trim();
-        Request request = new Request.Builder().get().url("这里换成你的请求登录的接口").build();
+
+        FormBody formBody = new FormBody
+                .Builder()
+                .add("phone", mobile_login.getText().toString().trim())
+                .add("code",yanzhengma.getText().toString().trim())
+                .build();
+
+        Request  request =  new Request.Builder()
+                .url(Constants.WEB_URL + "api/login")
+                .post(formBody)
+                .build();
+
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(getActivity(), "Get 失败",Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "登录连接服务器失败",Toast.LENGTH_SHORT);
             }
 
             @Override
@@ -119,16 +129,26 @@ public class LoginFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(responseStr);
                             Log.e("tag", "登陆的result=" + jsonObject);
-                            String success = jsonObject.optString("success");
-                            String data = jsonObject.optString("data");
-                            String msg=jsonObject.optString("msg");
-                            if ("true".equals(success)) {
+                            String code = jsonObject.optString("code");
+                            String message=jsonObject.optString("message");
+                            if ("1".equals(code)) {
+                                String data = jsonObject.optString("data");
                                 Log.e("tag","登陆的data="+data);
-                                JSONObject json = new JSONObject(data);
-                                token = json.optString("token");
-                                userId = json.optString("userId");
+
+                                // 记住用户名
+                                SharedPreferences.Editor editor = getActivity().getSharedPreferences("setting", 0).edit();
+                                editor.putString("USER_NAME", message);
+                                editor.putString("TOKEN",data);
+                                editor.apply();
+
+                                // 跳转我的账户页面
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.main_frame,new AccountFragment());
+                                transaction.commit();
+
+                                Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                             }
                         }catch (JSONException e){
                             e.printStackTrace();
@@ -138,7 +158,7 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-    //获取验证码信息，判断是否有手机号码
+    // 获取验证码信息，判断是否有手机号码
     private void getMobiile(String mobile) {
         if ("".equals(mobile)) {
             Log.e("tag", "mobile=" + mobile);
@@ -154,19 +174,20 @@ public class LoginFragment extends Fragment {
     private void requestVerifyCode(String mobile) {
         FormBody formBody = new FormBody
                 .Builder()
-                .add("mobile", mobile)
+                .add("phone", mobile)
                 .build();
 
         Request  request =  new Request.Builder()
-                .url("这里是你请求的验证码接口，让后台给你，参数什么的加在后面")
+                .url(Constants.WEB_URL + "api/sendCode")
                 .post(formBody)
                 .build();
 
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
+            @SuppressLint("ShowToast")
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(getActivity(), "Post Parameter 失败",Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "请求服务器失败",Toast.LENGTH_SHORT);
             }
 
             @Override
@@ -176,17 +197,19 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void run() {
                         try {
-                        JSONObject jsonObject2 = new JSONObject(responseStr);
-                        Log.e("tag", "jsonObject2" + jsonObject2);
-                        String state = jsonObject2.getString("success");
-                        String verifyCode = jsonObject2.getString("msg");
-                        Log.e("tag", "获取验证码==" + verifyCode);
-                        if ("true".equals(state)) {
-                            Toast.makeText(getActivity(), verifyCode, Toast.LENGTH_SHORT).show();
-                            startCountBack();//这里是用来进行请求参数的
-                        } else {
-                            Toast.makeText(getActivity(), verifyCode, Toast.LENGTH_SHORT).show();
-                        }
+
+                            JSONObject jsonObject2 = new JSONObject(responseStr);
+                            Log.e("tag", "jsonObject2" + jsonObject2);
+                            String code = jsonObject2.getString("code");
+                            if ("1".equals(code)) {
+                                Log.e("tag", "发送成功");
+                                Toast.makeText(getActivity(), "发送成功", Toast.LENGTH_SHORT).show();
+                                startCountBack();//这里是用来进行请求参数的
+                            } else {
+                                Log.e("tag", "发送失败");
+                                String message = jsonObject2.getString("message");
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            }
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -195,16 +218,17 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-    //使用正则表达式判断电话号码
+    // 使用正则表达式判断电话号码
     public static boolean isMobileNO(String tel) {
         Pattern p = Pattern.compile("^(13[0-9]|15([0-3]|[5-9])|14[5,7,9]|17[1,3,5,6,7,8]|18[0-9])\\d{8}$");
         Matcher m = p.matcher(tel);
         System.out.println(m.matches() + "---");
         return m.matches();
     }
-    //获取验证码信息,进行计时操作
+
+    // 获取验证码信息,进行计时操作
     private void startCountBack() {
-        ((Activity) mContext).runOnUiThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 getMsgCode.setText(countSeconds + "");
