@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="authArr">
+        <item>公开（所有人可见）</item>
+        <item>仅好友可见</item>
+        <item>私自（仅自己可见）</item>
+    </string-array>
+
+</resources>

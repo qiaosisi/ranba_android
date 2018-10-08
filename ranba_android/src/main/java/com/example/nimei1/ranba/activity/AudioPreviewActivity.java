@@ -36,7 +36,7 @@ public class AudioPreviewActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         setContentView(R.layout.activity_audio_preview);
+        setContentView(R.layout.activity_audio_preview);
         previewView = (VideoPreviewView) findViewById(R.id.videoView);
         findViewById(R.id.iv_close).setOnClickListener(this);
         findViewById(R.id.iv_confirm).setOnClickListener(this);

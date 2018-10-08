@@ -229,8 +229,7 @@ public class RecordedActivity extends BaseActivity implements View.OnClickListen
             pausing = false;
             autoPausing = false;
             timeCount = 0;
-            long time = System.currentTimeMillis();
-            String savePath = Constants.getPath("record/", time + ".mp4");
+            String savePath = Constants.getPath("ranBa/", System.currentTimeMillis() + ".mp4");
 
             try {
                 mCameraView.setSavePath(savePath);

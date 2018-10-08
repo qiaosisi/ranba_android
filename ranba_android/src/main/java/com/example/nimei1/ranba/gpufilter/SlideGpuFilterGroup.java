@@ -13,7 +13,7 @@ import com.example.nimei1.ranba.utils.EasyGlUtils;
 
 
 /**
- * Created by qy on 2018/7/20 0020.
+ * Created by QY on 2018/7/20
  * 滑动切换滤镜的控制类
  */
 

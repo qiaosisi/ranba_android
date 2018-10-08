@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
     android:layout_height="match_parent">
+
+    <com.example.nimei1.ranba.CustomToolBar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:left_tv_text="音频处理"
+        app:left_tv_visible="true"
+        app:right_btn_src="@drawable/search_bar"
+        app:right_btn_visible="true"
+        tools:context="com.example.nimei1.ranba.activity.MainActivity" />
+
     <TextView
         android:id="@+id/path_one"
-        android:text="音频路径"
+        android:text="@string/audioPath"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
 

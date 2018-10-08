@@ -74,7 +74,6 @@ public class VideoSelectActivity extends BaseActivity implements LoaderManager.L
     private void initData() {
         pageType = getIntent().getIntExtra("type", TYPE_SHOW_DIALOG);
 
-
         getLoaderManager().initLoader(0,null,this);
     }
 

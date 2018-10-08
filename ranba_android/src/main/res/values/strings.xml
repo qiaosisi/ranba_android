@@ -13,7 +13,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="video">视频</string>
     <string name="record">拍摄</string>
-    <string name="local_video_beauty">本地视频美颜</string>
+    <string name="local_video_beauty">视频上传</string>
     <string name="audio_editor">音频处理</string>
     <string name="video_connect">视频拼接</string>
     <string name="video_select">选择视频</string>
@@ -34,4 +34,9 @@
     <string name="inout_msg_code">请输入验证码</string>
     <string name="logo_welcome">欢迎来到燃吧</string>
     <string name="avatar">头像</string>
+    <string name="audioPath">音频路径</string>
+    <string name="position">位置</string>
+    <string name="topic"># 话题</string>
+    <string name="publish_text">发布</string>
+    <string name="input_title">请填写视频标题</string>
 </resources>

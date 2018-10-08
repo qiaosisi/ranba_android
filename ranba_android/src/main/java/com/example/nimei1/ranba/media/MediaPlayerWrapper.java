@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018/6/29 0029.
+ * Created by QY on 2018/6/29
  * desc：MediaPlayer的代理类 支持循环播放多个视频
  */
 
