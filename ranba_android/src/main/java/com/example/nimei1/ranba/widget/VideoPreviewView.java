@@ -20,7 +20,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Created by qy on 2018/10/16.
+ * Created by QY on 2018/10/16
  * desc: 播放视频的view 单个视频循环播放
  */
 

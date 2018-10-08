@@ -84,7 +84,7 @@ public class VideoConnectActivity extends BaseActivity implements View.OnClickLi
 
             mInfoList.add(info);
         }
-        outputPath = Constants.getPath("video/output/", System.currentTimeMillis() + "");
+        outputPath = Constants.getPath("ranBa/", System.currentTimeMillis() + ".mp4");
         showLoading("视频拼接中");
         MediaMuxerRunnable instance = new MediaMuxerRunnable();
         instance.setVideoInfo(mInfoList, outputPath);

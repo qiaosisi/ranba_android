@@ -12,8 +12,6 @@
         android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical"
         app:left_tv_text="@string/nav_upload"
         app:left_tv_visible="true"
@@ -21,7 +19,7 @@
         app:right_btn_visible="true"
         app:title_text="首页"
         app:title_visible="true"
-        tools:context="com.example.nimei1.ranba.activity.MainActivity"></com.example.nimei1.ranba.CustomToolBar>
+        tools:context="com.example.nimei1.ranba.activity.MainActivity" />
 
     <!-- TODO: Update blank fragment layout -->
     <Button

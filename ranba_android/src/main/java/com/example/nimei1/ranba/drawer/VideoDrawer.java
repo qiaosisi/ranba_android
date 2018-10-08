@@ -28,7 +28,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Created by cj on 2018/10/16.
+ * Created by QY on 2018/10/16
  * desc：添加水印和美白效果
  */
 
@@ -79,9 +79,9 @@ public class VideoDrawer implements GLSurfaceView.Renderer {
 //        mShow.setMatrix(OM);
 
         WaterMarkFilter waterMarkFilter = new WaterMarkFilter(res);
-        waterMarkFilter.setWaterMark(BitmapFactory.decodeResource(res, R.mipmap.watermark));
+        waterMarkFilter.setWaterMark(BitmapFactory.decodeResource(res, R.mipmap.watermark_ranba));
 
-        waterMarkFilter.setPosition(0,70,0,0);
+        waterMarkFilter.setPosition(20,70,0,0);
         mBeFilter.addFilter(waterMarkFilter);
 
     }

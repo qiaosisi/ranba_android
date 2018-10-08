@@ -24,7 +24,6 @@
             android:text="@string/video"/>
     </RelativeLayout>
 
-
     <GridView
         android:id="@+id/gridview_media_video"
         android:layout_width="match_parent"

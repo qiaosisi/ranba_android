@@ -141,7 +141,7 @@ public class TextureRender {
         mBeFilter = new GroupFilter(resources);
         //默认加上水印 可以取消掉
         WaterMarkFilter waterMarkFilter = new WaterMarkFilter(resources);
-        waterMarkFilter.setWaterMark(BitmapFactory.decodeResource(resources, R.mipmap.watermark));
+        waterMarkFilter.setWaterMark(BitmapFactory.decodeResource(resources, R.mipmap.watermark_ranba));
 
         waterMarkFilter.setPosition(0, 70, 0, 0);
         mBeFilter.addFilter(waterMarkFilter);

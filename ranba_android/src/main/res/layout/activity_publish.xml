@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.nimei1.ranba.CustomToolBar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:left_tv_text="发布"
+        app:left_tv_visible="true"
+        app:right_btn_visible="false"
+        tools:context="com.example.nimei1.ranba.activity.MainActivity" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/btn_radius"
+        android:text="@string/topic"
+        android:textColor="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/btnPublish"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="350dp"
+        android:background="@drawable/btn_radius"
+        android:text="@string/publish_text"
+        android:textColor="@color/colorWhite"
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="482dp" />
+
+    <EditText
+        android:id="@+id/inputTitle"
+        android:layout_width="331dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/theme_bar"
+        android:hint="@string/input_title"
+        android:gravity="top|start"
+        android:inputType="text"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/btn_radius"
+        android:text="@string/position"
+        android:textColor="@color/colorWhite"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="124dp" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="220dp"
+        android:entries="@array/authArr"
+        tools:layout_editor_absoluteY="185dp" />
+
+    <TextView
+        android:id="@+id/post_text"
+        android:layout_marginTop="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <ProgressBar
+        android:id="@+id/post_progress"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="410dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100" />
+
+</FrameLayout>

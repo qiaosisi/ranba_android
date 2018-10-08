@@ -19,14 +19,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp">
 
-            <ImageView
-                android:id="@+id/iv_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerInside"
-                android:src="@mipmap/editor_record_close" />
         </FrameLayout>
 
         <RelativeLayout
@@ -56,5 +48,17 @@
                 android:scaleType="centerInside"
                 android:src="@mipmap/editor_img_confirm"/>
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/nextStep"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="29dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_radius"
+            android:text="下一步"
+            android:textColor="@color/colorWhite" />
     </RelativeLayout>
 </FrameLayout>

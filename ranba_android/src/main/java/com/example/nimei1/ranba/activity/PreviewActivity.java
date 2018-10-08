@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,12 +27,11 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
 /**
- * Created by qy on 2018/10/16.
+ * Created by QY on 2018/10/16
  * desc: 循环播放选择的视频的页面，可以对视频设置水印和美白效果
  */
 
 public class PreviewActivity extends BaseActivity implements View.OnClickListener, MediaPlayerWrapper.IMediaCallback, SlideGpuFilterGroup.OnFilterChangeListener, View.OnTouchListener {
-
 
     private VideoPreviewView mVideoView;
     private String mPath;
@@ -92,13 +92,13 @@ public class PreviewActivity extends BaseActivity implements View.OnClickListene
         mVideoView = (VideoPreviewView) findViewById(R.id.videoView);
         ImageView back = (ImageView) findViewById(R.id.iv_back);
         ImageView confirm = (ImageView) findViewById(R.id.iv_confirm);
-        ImageView close = (ImageView) findViewById(R.id.iv_close);
         mBeauty = (ImageView) findViewById(R.id.iv_beauty);
+        Button nextStep = findViewById(R.id.nextStep);
 
         back.setOnClickListener(this);
         confirm.setOnClickListener(this);
-        close.setOnClickListener(this);
         mBeauty.setOnClickListener(this);
+        nextStep.setOnClickListener(this);
         mVideoView.setOnFilterChangeListener(this);
         mVideoView.setOnTouchListener(this);
         setLoadingCancelable(false);
@@ -149,7 +149,6 @@ public class PreviewActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_back:
-            case R.id.iv_close:
                 if (isLoading()){
                     endLoading();
                 }
@@ -175,7 +174,7 @@ public class PreviewActivity extends BaseActivity implements View.OnClickListene
                     clipper.showBeauty();
                 }
                 clipper.setInputVideoPath(mPath);
-                outputPath = Constants.getPath("video/clip/", System.currentTimeMillis() + "");
+                outputPath = Constants.getPath("ranBa/", System.currentTimeMillis() + ".mp4");
                 clipper.setFilterType(filterType);
                 clipper.setOutputVideoPath(outputPath);
                 clipper.setOnVideoCutFinishListener(new VideoClipper.OnVideoCutFinishListener() {
@@ -191,9 +190,12 @@ public class PreviewActivity extends BaseActivity implements View.OnClickListene
                     e.printStackTrace();
                 }
 
-
                 break;
-
+            case R.id.nextStep:
+                Intent intent = new Intent(PreviewActivity.this,PublishActivity.class);
+                intent.putExtra("path",mPath);
+                startActivity(intent);
+                break;
         }
     }
 

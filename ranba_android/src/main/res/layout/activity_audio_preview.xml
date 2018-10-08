@@ -19,14 +19,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp">
 
-            <ImageView
-                android:id="@+id/iv_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerInside"
-                android:src="@mipmap/editor_record_close" />
         </FrameLayout>
 
         <RelativeLayout
@@ -36,6 +28,16 @@
             android:layout_marginBottom="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/editor_record_close" />
+
             <ImageView
                 android:id="@+id/iv_confirm"
                 android:layout_width="wrap_content"
